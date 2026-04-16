@@ -2,7 +2,6 @@
 Typing SVG
 🚀 About Me
 I am an enthusiastic person who enjoys exploring new technologies and building innovative solutions. My journey in the world of technology is driven by curiosity and a desire to create meaningful projects.
-file:///Users/macintosh/Herd/portofolio/index.htm
 
 🎯 Focused on Web & AI Development
 🧠 Always learning and improving my skills
