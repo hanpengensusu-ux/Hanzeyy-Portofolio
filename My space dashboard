@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Produktivitas - Personal Space</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --bg-dark: #0f172a;
+            --bg-light: #f8fafc;
+            --card-dark: rgba(30, 41, 59, 0.7);
+            --card-light: rgba(255, 255, 255, 0.8);
+            --text-dark: #e2e8f0;
+            --text-light: #1e293b;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            transition: all 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        /* Glass Card */
+        .card {
+            background: var(--card-dark);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.8s ease backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.light-mode .card {
+            background: var(--card-light);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body.light-mode .card-title {
+            color: var(--text-light);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .icon-clock { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .icon-todo { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .icon-note { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .icon-timer { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+
+        /* Clock Widget */
+        .clock-display {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .time {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        body.light-mode .time {
+            color: var(--text-light);
+        }
+
+        .date {
+            font-size: 1.1rem;
+            color: rgba(226, 232, 240, 0.7);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        body.light-mode .date {
+            color: rgba(30, 41, 59, 0.7);
+        }
+
+        .greeting {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        /* Todo List */
+        .todo-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-dark);
+            font-size: 1rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        body.light-mode .todo-input {
+            background: rgba(255,255,255,0.5);
+            color: var(--text-light);
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        .todo-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .todo-list {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease;
+        }
+
+        body.light-mode .todo-item {
+            background: rgba(255,255,255,0.5);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .todo-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .todo-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .todo-checkbox.checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .todo-checkbox.checked i {
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .todo-text {
+            flex: 1;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        body.light-mode .todo-text {
+            color: var(--text-light);
+        }
+
+        .todo-text.completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .todo-delete {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+
+        .todo-item:hover .todo-delete {
+            opacity: 1;
+        }
+
+        .todo-delete:hover {
+            background: rgba(239, 68, 68, 0.1);
+            transform: scale(1.2);
+        }
+
+        /* Notes */
+        .notes-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-dark);
+            font-size: 1rem;
+            resize: vertical;
+            transition: all 0.3s;
+            outline: none;
+            font-family: inherit;
+            line-height: 1.6;
+        }
+
+        body.light-mode .notes-textarea {
+            background: rgba(255,255,255,0.5);
+            color: var(--text-light);
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        .notes-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        .save-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #10b981;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .save-indicator.show {
+            opacity: 1;
+        }
+
+        /* Pomodoro Timer */
+        .timer-display {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .timer-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .timer-svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .timer-bg {
+            fill: none;
+            stroke: rgba(255,255,255,0.1);
+            stroke-width: 8;
+        }
+
+        body.light-mode .timer-bg {
+            stroke: rgba(0,0,0,0.1);
+        }
+
+        .timer-progress {
+            fill: none;
+            stroke: url(#timerGradient);
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .timer-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        body.light-mode .timer-text {
+            color: var(--text-light);
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .timer-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-btn-start {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .timer-btn-pause {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .timer-btn-reset {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-dark);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        body.light-mode .timer-btn-reset {
+            color: var(--text-light);
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        .timer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .timer-modes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        body.light-mode .mode-btn {
+            color: var(--text-light);
+            background: rgba(0,0,0,0.05);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, var(--secondary) 0%, #db2777 100%);
+            color: white;
+        }
+
+        /* Progress Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        body.light-mode .stat-item {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(226, 232, 240, 0.7);
+            margin-top: 5px;
+        }
+
+        body.light-mode .stat-label {
+            color: rgba(30, 41, 59, 0.7);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .time {
+                font-size: 2.5rem;
+            }
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Definitions for Gradients -->
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#ec4899" />
+                <stop offset="100%" style="stop-color:#8b5cf6" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>MySpace Dashboard</span>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Ganti Tema">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="grid">
+            <!-- Clock Card -->
+            <div class="card" style="animation-delay: 0.1s">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <div class="card-icon icon-clock"><i class="fas fa-clock"></i></div>
+                        Waktu & Sapaan
+                    </h2>
+                </div>
+                <div class="clock-display">
+                    <div class="time" id="clock">00:00:00</div>
+                    <div class="date" id="date">Memuat...</div>
+                    <div class="greeting" id="greeting">Selamat Datang!</div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" id="dayOfYear">-</span>
+                        <div class="stat-label">Hari ke-</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="weekNumber">-</span>
+                        <div class="stat-label">Minggu ke-</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="daysLeft">-</span>
+                        <div class="stat-label">Hari Tersisa</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Todo List Card -->
+            <div class="card" style="animation-delay: 0.2s">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <div class="card-icon icon-todo"><i class="fas fa-check-circle"></i></div>
+                        Daftar Tugas
+                    </h2>
+                    <span style="color: var(--primary); font-weight: 700;" id="todoCount">0</span>
+                </div>
+                <div class="todo-input-group">
+                    <input type="text" class="todo-input" id="todoInput" placeholder="Tambah tugas baru..." onkeypress="handleEnter(event)">
+                    <button class="btn" onclick="addTodo()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <ul class="todo-list" id="todoList"></ul>
+            </div>
+
+            <!-- Notes Card -->
+            <div class="card" style="animation-delay: 0.3s">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <div class="card-icon icon-note"><i class="fas fa-sticky-note"></i></div>
+                        Catatan Cepat
+                    </h2>
+                </div>
+                <textarea class="notes-textarea" id="notes" placeholder="Tulis catatan Anda di sini..."></textarea>
+                <div class="save-indicator" id="saveIndicator">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Tersimpan otomatis</span>
+                </div>
+            </div>
+
+            <!-- Pomodoro Timer Card -->
+            <div class="card" style="animation-delay: 0.4s">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <div class="card-icon icon-timer"><i class="fas fa-hourglass-half"></i></div>
+                        Pomodoro Timer
+                    </h2>
+                </div>
+                <div class="timer-modes">
+                    <button class="mode-btn active" onclick="setTimerMode(25)">Fokus</button>
+                    <button class="mode-btn" onclick="setTimerMode(5)">Istirahat</button>
+                    <button class="mode-btn" onclick="setTimerMode(15)">Panjang</button>
+                </div>
+                <div class="timer-display">
+                    <div class="timer-circle">
+                        <svg class="timer-svg" viewBox="0 0 100 100">
+                            <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="timer-progress" id="timerProgress" cx="50" cy="50" r="45" 
+                                stroke-dasharray="283" stroke-dashoffset="0"></circle>
+                        </svg>
+                        <div class="timer-text" id="timerDisplay">25:00</div>
+                    </div>
+                    <div class="timer-controls">
+                        <button class="timer-btn timer-btn-start" id="startBtn" onclick="startTimer()">
+                            <i class="fas fa-play"></i> Mulai
+                        </button>
+                        <button class="timer-btn timer-btn-pause" id="pauseBtn" onclick="pauseTimer()" style="display:none">
+                            <i class="fas fa-pause"></i> Jeda
+                        </button>
+                        <button class="timer-btn timer-btn-reset" onclick="resetTimer()">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particles Animation
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.width = particle.style.height = (Math.random() * 20 + 5) + 'px';
+                container.appendChild(particle);
+            }
+        }
+
+        // Clock Functionality
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('id-ID', options);
+            
+            // Greeting
+            const hour = now.getHours();
+            let greeting = 'Selamat Datang!';
+            if (hour >= 5 && hour < 11) greeting = 'Selamat Pagi! ☀️';
+            else if (hour >= 11 && hour < 15) greeting = 'Selamat Siang! 🌤️';
+            else if (hour >= 15 && hour < 18) greeting = 'Selamat Sore! 🌅';
+            else greeting = 'Selamat Malam! 🌙';
+            
+            document.getElementById('greeting').textContent = greeting;
+            
+            // Stats
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            const weekNumber = Math.ceil(dayOfYear / 7);
+            const daysLeft = 365 - dayOfYear;
+            
+            document.getElementById('dayOfYear').textContent = dayOfYear;
+            document.getElementById('weekNumber').textContent = weekNumber;
+            document.getElementById('daysLeft').textContent = daysLeft;
+        }
+
+        // Todo List Functionality
+        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+        function renderTodos() {
+            const list = document.getElementById('todoList');
+            list.innerHTML = '';
+            
+            todos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.className = 'todo-item';
+                li.innerHTML = `
+                    <div class="todo-checkbox ${todo.completed ? 'checked' : ''}" onclick="toggleTodo(${index})">
+                        ${todo.completed ? '<i class="fas fa-check"></i>' : ''}
+                    </div>
+                    <span class="todo-text ${todo.completed ? 'completed' : ''}">${escapeHtml(todo.text)}</span>
+                    <button class="todo-delete" onclick="deleteTodo(${index})">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                `;
+                list.appendChild(li);
+            });
+            
+            document.getElementById('todoCount').textContent = todos.filter(t => !t.completed).length;
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                todos.push({ text, completed: false });
+                input.value = '';
+                renderTodos();
+                createRipple(event);
+            }
+        }
+
+        function toggleTodo(index) {
+            todos[index].completed = !todos[index].completed;
+            renderTodos();
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            renderTodos();
+        }
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') addTodo();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Notes Functionality
+        const notesTextarea = document.getElementById('notes');
+        const saveIndicator = document.getElementById('saveIndicator');
+        let saveTimeout;
+
+        notesTextarea.value = localStorage.getItem('notes') || '';
+
+        notesTextarea.addEventListener('input', () => {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                localStorage.setItem('notes', notesTextarea.value);
+                saveIndicator.classList.add('show');
+                setTimeout(() => saveIndicator.classList.remove('show'), 2000);
+            }, 1000);
+        });
+
+        // Pomodoro Timer
+        let timerInterval;
+        let timeLeft = 25 * 60;
+        let totalTime = 25 * 60;
+        let isRunning = false;
+        let currentMode = 25;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
+            const circumference = 2 * Math.PI * 45;
+            const offset = circumference - (timeLeft / totalTime) * circumference;
+            document.getElementById('timerProgress').style.strokeDashoffset = offset;
+        }
+
+        function setTimerMode(minutes) {
+            pauseTimer();
+            currentMode = minutes;
+            totalTime = minutes * 60;
+            timeLeft = totalTime;
+            updateTimerDisplay();
+            
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                document.getElementById('startBtn').style.display = 'none';
+                document.getElementById('pauseBtn').style.display = 'flex';
+                
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        pauseTimer();
+                        alert('Waktu habis! 🎉');
+                        resetTimer();
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('startBtn').style.display = 'flex';
+            document.getElementById('pauseBtn').style.display = 'none';
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timeLeft = totalTime;
+            updateTimerDisplay();
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.getElementById('themeIcon');
+            
+            if (document.body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Ripple Effect
+        function createRipple(event) {
+            const button = event.target.closest('button') || event.target;
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            button.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            updateClock();
+            setInterval(updateClock, 1000);
+            renderTodos();
+            updateTimerDisplay();
+            
+            // Load saved theme
+            if (localStorage.getItem('theme') === 'light') {
+                toggleTheme();
+            }
+        });
+
+        // Add ripple to all buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+    </script>
+</body>
+</html>
