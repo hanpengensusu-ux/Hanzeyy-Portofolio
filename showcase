@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundZ - Premium Audio Products</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #0a0f1f;
+    font-family: 'Poppins', sans-serif;
+    color: #eee;
+    overflow-x: hidden;
+}
+
+:root {
+    --accent: #61dafb;
+    --accent2: #693EFF;
+    --bg: #0a0f1f;
+    --bg2: #0d1428;
+    --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
+    --item1-filter: blur(30px);
+    --item1-zIndex: 11;
+    --item1-opacity: 0;
+    --item2-transform: translateX(0);
+    --item2-filter: blur(0px);
+    --item2-zIndex: 10;
+    --item2-opacity: 1;
+    --item3-transform: translate(50%,10%) scale(0.8);
+    --item3-filter: blur(10px);
+    --item3-zIndex: 9;
+    --item3-opacity: 1;
+    --item4-transform: translate(90%,20%) scale(0.5);
+    --item4-filter: blur(30px);
+    --item4-zIndex: 8;
+    --item4-opacity: 1;
+    --item5-transform: translate(120%,30%) scale(0.3);
+    --item5-filter: blur(40px);
+    --item5-zIndex: 7;
+    --item5-opacity: 0;
+}
+
+/* ===== HEADER ===== */
+header {
+    width: 1140px;
+    max-width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    height: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+}
+
+header .logo {
+    font-weight: 800;
+    font-size: 28px;
+    background: linear-gradient(135deg, #fff 30%, #61dafb 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header nav { display: flex; align-items: center; }
+
+header nav a {
+    margin-left: 28px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    background: linear-gradient(to bottom, #ffffff, #cccccc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+header nav a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, transparent, #61dafb, transparent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+header nav a:hover { transform: translateY(-1px); background: linear-gradient(to bottom, #61dafb, #3d8ea8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+header nav a:hover::before { transform: scaleX(1); }
+
+/* Cart Icon */
+.cart-btn {
+    position: relative;
+    background: rgba(97,218,251,0.1);
+    border: 1px solid rgba(97,218,251,0.3);
+    border-radius: 50%;
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 20px;
+    flex-shrink: 0;
+}
+.cart-btn:hover { background: rgba(97,218,251,0.2); box-shadow: 0 0 15px rgba(97,218,251,0.3); }
+.cart-btn svg { width: 18px; height: 18px; stroke: #61dafb; fill: none; }
+.cart-badge {
+    position: absolute;
+    top: -5px; right: -5px;
+    background: #693EFF;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    display: none;
+}
+.cart-badge.show { display: flex; }
+
+/* ===== PAGES ===== */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ===== CAROUSEL PAGE ===== */
+.carousel {
+    position: relative;
+    height: 800px;
+    overflow: hidden;
+    margin-top: -60px;
+    background: #0a0f1f;
+}
+
+.carousel .list {
+    position: absolute;
+    width: 1140px;
+    max-width: 90%;
+    height: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.carousel .list .item {
+    position: absolute;
+    left: 0%;
+    width: 70%;
+    height: 100%;
+    font-size: 15px;
+    transition: left 0.5s, opacity 0.5s, width 0.5s;
+}
+
+.carousel .list .item:nth-child(n+6) { opacity: 0; }
+.carousel .list .item:nth-child(2) { z-index: 10; transform: translateX(0); }
+
+.carousel .list .item img {
+    width: 45%;
+    position: absolute;
+    right: 0; top: 50%;
+    transform: translateY(-50%);
+    transition: all 1.5s ease;
+    z-index: 2;
+    object-fit: contain;
+    max-height: 400px;
+}
+
+.carousel .list .item .introduce { opacity: 0; pointer-events: none; }
+
+.carousel .list .item:nth-child(2) .introduce {
+    opacity: 1;
+    pointer-events: auto;
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50px);
+    transition: all 0.5s ease;
+    left: 0;
+    padding-left: 20px;
+}
+
+.carousel .list .item .introduce .title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #61dafb;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    display: inline-block;
+    position: relative;
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+
+.carousel .list .item .introduce .topic {
+    font-size: 4.2em;
+    font-weight: 800;
+    margin: 15px 0;
+    line-height: 1.1;
+    background: linear-gradient(to bottom, #ffffff, #cccccc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.carousel .list .item .introduce .des {
+    font-size: 0.95em;
+    color: #ffffff;
+    line-height: 1.8;
+    margin: 25px 0;
+    max-width: 90%;
+    letter-spacing: 0.3px;
+}
+
+.carousel .list .item .introduce .seeMore {
+    font-family: 'Poppins', sans-serif;
+    padding: 14px 35px;
+    border: 1px solid rgba(97,218,251,0.5);
+    background: linear-gradient(135deg, rgba(97,218,251,0.1) 0%, rgba(97,218,251,0.05) 100%);
+    color: #61dafb;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fade-in 0.5s ease-out forwards 1.8s;
+}
+
+.carousel .list .item .introduce .seeMore:hover {
+    background: #61dafb;
+    color: #0a0f1f;
+    box-shadow: 0 0 20px rgba(97,218,251,0.5);
+    letter-spacing: 2.5px;
+    transform: translateY(-2px);
+}
+
+/* Detail */
+.carousel .list .item .detail {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    text-align: right;
+    padding: 20px;
+}
+
+.carousel .list .item .detail .title {
+    font-size: 3em;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(to bottom, #ffffff, #cccccc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.carousel .list .item .detail .des { font-size: 1em; color: #ccc; line-height: 1.8; margin-bottom: 20px; }
+
+.carousel .list .item .detail .specifications {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    border-top: 1px solid #5553;
+    margin-top: 20px;
+    padding-top: 20px;
+    justify-content: flex-end;
+}
+
+.carousel .list .item .detail .specifications div { width: 100px; text-align: center; flex-shrink: 0; }
+.carousel .list .item .detail .specifications div p:nth-child(1) { font-weight: bold; color: #61dafb; font-size: 1.2em; margin-bottom: 5px; }
+.carousel .list .item .detail .specifications div p:nth-child(2) { font-size: 0.85em; color: #aaa; }
+
+.carousel .list .item .detail .checkout {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.carousel .list .item .detail .checkout button {
+    font-family: 'Poppins', sans-serif;
+    background-color: transparent;
+    border: 1px solid #5555;
+    padding: 10px 25px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #eee;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.carousel .list .item .detail .checkout button:hover { border-color: #61dafb; color: #61dafb; }
+
+.carousel .list .item .detail .checkout button.btn-checkout {
+    background-color: #693EFF;
+    color: #eee;
+    border: none;
+}
+.carousel .list .item .detail .checkout button.btn-checkout:hover {
+    background-color: #7c5cff;
+    box-shadow: 0 0 20px rgba(105,62,255,0.4);
+}
+
+/* Item positions */
+.carousel .list .item:nth-child(1) { transform: var(--item1-transform); filter: var(--item1-filter); z-index: var(--item1-zIndex); opacity: var(--item1-opacity); pointer-events: none; }
+.carousel .list .item:nth-child(3) { transform: var(--item3-transform); filter: var(--item3-filter); z-index: var(--item3-zIndex); }
+.carousel .list .item:nth-child(4) { transform: var(--item4-transform); filter: var(--item4-filter); z-index: var(--item4-zIndex); }
+.carousel .list .item:nth-child(5) { transform: var(--item5-transform); filter: var(--item5-filter); opacity: var(--item5-opacity); pointer-events: none; }
+
+/* Animations */
+.carousel .list .item:nth-child(2) .introduce .title,
+.carousel .list .item:nth-child(2) .introduce .topic,
+.carousel .list .item:nth-child(2) .introduce .des,
+.carousel .list .item:nth-child(2) .introduce .seeMore {
+    opacity: 0;
+    animation: showContent 0.5s ease-in-out 1 forwards;
+}
+
+@keyframes showContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.carousel .list .item:nth-child(2) .introduce .title { animation-delay: 0.5s; }
+.carousel .list .item:nth-child(2) .introduce .topic { animation-delay: 0.7s; }
+.carousel .list .item:nth-child(2) .introduce .des { animation-delay: 0.9s; }
+.carousel .list .item:nth-child(2) .introduce .seeMore { animation-delay: 1.1s; }
+
+@keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Next/Prev animations */
+.carousel.next .item:nth-child(1) { animation: transformFromPosition2 0.5s ease-in-out 1 forwards; }
+@keyframes transformFromPosition2 { from { transform: var(--item2-transform); filter: var(--item2-filter); opacity: var(--item2-opacity); } }
+.carousel.next .item:nth-child(2) { animation: transformFromPosition3 0.7s ease-in-out 1 forwards; }
+@keyframes transformFromPosition3 { from { transform: var(--item3-transform); filter: var(--item3-filter); opacity: var(--item3-opacity); } }
+.carousel.next .item:nth-child(3) { animation: transformFromPosition4 0.9s ease-in-out 1 forwards; }
+@keyframes transformFromPosition4 { from { transform: var(--item4-transform); filter: var(--item4-filter); opacity: var(--item4-opacity); } }
+.carousel.next .item:nth-child(4) { animation: transformFromPosition5 1.1s ease-in-out 1 forwards; }
+@keyframes transformFromPosition5 { from { transform: var(--item5-transform); filter: var(--item5-filter); opacity: var(--item5-opacity); } }
+
+.carousel.prev .list .item:nth-child(5) { animation: transformFromPosition4 0.5s ease-in-out 1 forwards; }
+.carousel.prev .list .item:nth-child(4) { animation: transformFromPosition3 0.7s ease-in-out 1 forwards; }
+.carousel.prev .list .item:nth-child(3) { animation: transformFromPosition2 0.9s ease-in-out 1 forwards; }
+.carousel.prev .list .item:nth-child(2) { animation: transformFromPosition1 1.1s ease-in-out 1 forwards; }
+@keyframes transformFromPosition1 { from { transform: var(--item1-transform); filter: var(--item1-filter); opacity: var(--item1-opacity); } }
+
+/* Show Detail */
+.carousel.showDetail .list .item:nth-child(3),
+.carousel.showDetail .list .item:nth-child(4) { left: 100%; opacity: 0; pointer-events: none; }
+.carousel.showDetail .list .item:nth-child(2) { width: 100%; }
+.carousel.showDetail .list .item:nth-child(2) .introduce { opacity: 0; pointer-events: none; }
+.carousel.showDetail .list .item:nth-child(2) img { right: 50%; }
+.carousel.showDetail .list .item:nth-child(2) .detail { opacity: 1; pointer-events: auto; }
+
+.carousel.showDetail .list .item:nth-child(2) .detail .title,
+.carousel.showDetail .list .item:nth-child(2) .detail .des,
+.carousel.showDetail .list .item:nth-child(2) .detail .specifications,
+.carousel.showDetail .list .item:nth-child(2) .detail .checkout {
+    opacity: 0;
+    animation: showContent 0.5s 1s ease-in-out 1 forwards;
+}
+.carousel.showDetail .list .item:nth-child(2) .detail .des { animation-delay: 1.2s; }
+.carousel.showDetail .list .item:nth-child(2) .detail .specifications { animation-delay: 1.4s; }
+.carousel.showDetail .list .item:nth-child(2) .detail .checkout { animation-delay: 1.6s; }
+
+/* Arrows */
+.arrows {
+    position: absolute;
+    bottom: 30px;
+    width: 1140px;
+    max-width: 90%;
+    display: flex;
+    justify-content: space-between;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#prev, #next {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: rgba(97,218,251,0.1);
+    border: 1px solid rgba(97,218,251,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    bottom: 20%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+#prev::before, #next::before {
+    content: '';
+    position: absolute;
+    width: 10px; height: 10px;
+    border-left: 2px solid #61dafb;
+    border-bottom: 2px solid #61dafb;
+    transform: rotate(45deg);
+    left: 20px;
+    transition: all 0.3s ease;
+}
+
+#next::before { transform: rotate(-135deg); left: 17px; }
+#prev:hover, #next:hover { background: rgba(97,218,251,0.2); transform: scale(1.1); box-shadow: 0 0 20px rgba(97,218,251,0.3); }
+
+#back {
+    position: absolute;
+    z-index: 100;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    border-bottom: 1px solid #555;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    letter-spacing: 3px;
+    background-color: transparent;
+    padding: 10px;
+    color: #eee;
+    cursor: pointer;
+    transition: opacity 0.5s;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#back:hover { color: #61dafb; border-bottom-color: #61dafb; }
+.carousel.showDetail #back { opacity: 1; pointer-events: auto; }
+.carousel.showDetail #prev, .carousel.showDetail #next { opacity: 0; pointer-events: none; }
+
+/* ===== SERVICES PAGE ===== */
+.services-page {
+    min-height: 100vh;
+    padding: 80px 0;
+}
+
+.page-hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+}
+
+.page-hero .tag {
+    display: inline-block;
+    color: #61dafb;
+    font-size: 0.85em;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.page-hero h1 {
+    font-size: 3.5em;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 30%, #61dafb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.page-hero p {
+    color: #aaa;
+    font-size: 1.1em;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.container { width: 1140px; max-width: 90%; margin: 0 auto; }
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 40px 0;
+}
+
+.service-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(97,218,251,0.1);
+    border-radius: 16px;
+    padding: 35px 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, #61dafb, transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.service-card:hover { border-color: rgba(97,218,251,0.3); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.service-card:hover::before { opacity: 1; }
+
+.service-icon {
+    width: 60px; height: 60px;
+    background: rgba(97,218,251,0.1);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+.service-card h3 {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.service-card p {
+    color: #888;
+    font-size: 0.9em;
+    line-height: 1.7;
+}
+
+.service-price {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.service-price .price {
+    color: #61dafb;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid rgba(97,218,251,0.4);
+    color: #61dafb;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: #61dafb;
+    color: #0a0f1f;
+}
+
+/* Features section */
+.features-section {
+    padding: 60px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.features-section h2 {
+    text-align: center;
+    font-size: 2.2em;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 50px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+}
+
+.feature-item:hover { background: rgba(97,218,251,0.05); border-color: rgba(97,218,251,0.2); }
+.feature-item .fi-icon { font-size: 36px; margin-bottom: 15px; }
+.feature-item h4 { color: #fff; font-size: 1em; font-weight: 600; margin-bottom: 8px; }
+.feature-item p { color: #666; font-size: 0.85em; line-height: 1.6; }
+
+/* ===== CONTACT PAGE ===== */
+.contact-page { min-height: 100vh; padding: 80px 0; }
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 50px;
+    padding: 50px 0;
+    align-items: start;
+}
+
+.contact-info h2 {
+    font-size: 2em;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    color: #888;
+    font-size: 0.95em;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.contact-item-icon {
+    width: 45px; height: 45px;
+    background: rgba(97,218,251,0.1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.contact-item-text h4 { color: #fff; font-size: 0.95em; font-weight: 600; margin-bottom: 4px; }
+.contact-item-text p { color: #888; font-size: 0.85em; }
+
+.contact-form {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(97,218,251,0.15);
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.contact-form h3 {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; color: #888; font-size: 0.85em; font-weight: 500; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #eee;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: rgba(97,218,251,0.5);
+    background: rgba(97,218,251,0.03);
+    box-shadow: 0 0 0 3px rgba(97,218,251,0.08);
+}
+
+.form-group select option { background: #0d1428; color: #eee; }
+.form-group textarea { height: 130px; resize: none; }
+
+.btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #693EFF, #61dafb);
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(105,62,255,0.4);
+    filter: brightness(1.1);
+}
+
+/* Toast notification */
+.toast {
+    position: fixed;
+    top: 80px; right: 30px;
+    background: linear-gradient(135deg, rgba(97,218,251,0.15), rgba(105,62,255,0.15));
+    border: 1px solid rgba(97,218,251,0.3);
+    border-radius: 12px;
+    padding: 15px 25px;
+    color: #fff;
+    font-size: 0.9em;
+    z-index: 9999;
+    transform: translateX(200%);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    backdrop-filter: blur(10px);
+    max-width: 320px;
+}
+
+.toast.show { transform: translateX(0); }
+.toast .toast-title { font-weight: 700; color: #61dafb; margin-bottom: 4px; font-size: 1em; }
+
+/* ===== CART SIDEBAR ===== */
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.cart-overlay.show { opacity: 1; pointer-events: auto; }
+
+.cart-sidebar {
+    position: fixed;
+    top: 0; right: 0;
+    width: 420px;
+    height: 100vh;
+    background: #0d1428;
+    border-left: 1px solid rgba(97,218,251,0.1);
+    z-index: 1001;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-sidebar.show { transform: translateX(0); }
+
+.cart-header {
+    padding: 25px 25px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-header h2 {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #fff;
+}
+
+.cart-close {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #888;
+    font-size: 18px;
+    transition: all 0.3s;
+    line-height: 1;
+}
+
+.cart-close:hover { background: rgba(255,60,60,0.15); border-color: rgba(255,60,60,0.3); color: #ff6b6b; }
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.cart-items::-webkit-scrollbar { width: 4px; }
+.cart-items::-webkit-scrollbar-track { background: transparent; }
+.cart-items::-webkit-scrollbar-thumb { background: rgba(97,218,251,0.2); border-radius: 2px; }
+
+.cart-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #555;
+}
+
+.cart-empty .empty-icon { font-size: 60px; margin-bottom: 20px; opacity: 0.4; }
+.cart-empty p { font-size: 1em; }
+
+.cart-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.cart-item-img {
+    width: 70px; height: 70px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.cart-item-img img { width: 85%; height: 85%; object-fit: contain; }
+
+.cart-item-info { flex: 1; }
+
+.cart-item-info h4 { font-size: 0.95em; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.cart-item-info .cart-item-cat { font-size: 0.75em; color: #555; margin-bottom: 8px; }
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.qty-btn {
+    width: 28px; height: 28px;
+    background: transparent;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+
+.qty-btn:hover { background: rgba(97,218,251,0.1); color: #61dafb; }
+.qty-val { color: #fff; font-size: 0.85em; font-weight: 600; padding: 0 8px; min-width: 24px; text-align: center; }
+
+.cart-item-price { color: #61dafb; font-weight: 700; font-size: 1em; margin-left: auto; }
+
+.cart-item-remove {
+    background: transparent;
+    border: none;
+    color: #444;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.cart-item-remove:hover { color: #ff6b6b; }
+
+/* Cart footer */
+.cart-footer {
+    padding: 20px 25px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.cart-subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.cart-subtotal span { color: #888; font-size: 0.9em; }
+.cart-subtotal .amount { color: #fff; font-weight: 600; font-size: 1em; }
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.cart-total span { color: #fff; font-size: 1.1em; font-weight: 700; }
+.cart-total .total-amount { color: #61dafb; font-size: 1.3em; font-weight: 800; }
+
+.btn-checkout-main {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #693EFF, #5533cc);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.btn-checkout-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(105,62,255,0.5);
+}
+
+.btn-continue {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: #888;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-continue:hover { border-color: rgba(97,218,251,0.3); color: #61dafb; }
+
+/* ===== CHECKOUT MODAL ===== */
+.checkout-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(6px);
+    padding: 20px;
+}
+
+.checkout-modal.show { opacity: 1; pointer-events: auto; }
+
+.checkout-box {
+    background: #0d1428;
+    border: 1px solid rgba(97,218,251,0.15);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes modalIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.checkout-box::-webkit-scrollbar { width: 4px; }
+.checkout-box::-webkit-scrollbar-thumb { background: rgba(97,218,251,0.2); border-radius: 2px; }
+
+.checkout-box h2 {
+    font-size: 1.5em;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.checkout-box .subtitle {
+    color: #555;
+    font-size: 0.85em;
+    margin-bottom: 30px;
+}
+
+.checkout-form .form-group { margin-bottom: 16px; }
+
+.checkout-form label {
+    display: block;
+    color: #666;
+    font-size: 0.78em;
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.checkout-form input,
+.checkout-form select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 11px 14px;
+    color: #eee;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88em;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.checkout-form input:focus,
+.checkout-form select:focus {
+    border-color: rgba(97,218,251,0.4);
+    box-shadow: 0 0 0 3px rgba(97,218,251,0.07);
+}
+
+.checkout-form select option { background: #0d1428; }
+
+.checkout-divider {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #444;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 20px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkout-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.05);
+}
+
+.checkout-order-summary {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 20px 0;
+}
+
+.checkout-order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 0.85em;
+}
+
+.checkout-order-item span:first-child { color: #888; }
+.checkout-order-item span:last-child { color: #fff; font-weight: 500; }
+.checkout-order-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+.checkout-order-total span { color: #fff; font-weight: 700; }
+.checkout-order-total .total-price { color: #61dafb; font-size: 1.2em; font-weight: 800; }
+
+.checkout-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn-pay {
+    flex: 1;
+    padding: 15px;
+    background: linear-gradient(135deg, #693EFF, #5533cc);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+}
+
+.btn-pay:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(105,62,255,0.5); }
+
+.btn-cancel {
+    padding: 15px 25px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: #888;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancel:hover { border-color: rgba(255,100,100,0.3); color: #ff8888; }
+
+/* Success modal */
+.success-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+.success-modal.show { opacity: 1; pointer-events: auto; }
+
+.success-box {
+    background: #0d1428;
+    border: 1px solid rgba(97,218,251,0.2);
+    border-radius: 24px;
+    padding: 50px 40px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    animation: modalIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.success-icon {
+    font-size: 72px;
+    margin-bottom: 20px;
+    animation: bounceIn 0.6s ease 0.2s both;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.success-box h2 { font-size: 2em; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.success-box p { color: #888; font-size: 0.95em; line-height: 1.7; margin-bottom: 30px; }
+.success-box .order-id { color: #61dafb; font-weight: 700; font-size: 1.1em; }
+
+.btn-done {
+    padding: 14px 50px;
+    background: linear-gradient(135deg, #61dafb, #3d8ea8);
+    border: none;
+    border-radius: 10px;
+    color: #0a0f1f;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+}
+
+.btn-done:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(97,218,251,0.4); }
+
+/* ===== FOOTER ===== */
+footer {
+    background: #060a15;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 50px 0 30px;
+}
+
+.footer-inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand h3 {
+    font-size: 1.6em;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 30%, #61dafb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+}
+
+.footer-brand p { color: #555; font-size: 0.85em; line-height: 1.7; }
+
+.footer-col h4 { color: #fff; font-size: 0.9em; font-weight: 600; margin-bottom: 16px; letter-spacing: 1px; }
+
+.footer-col a {
+    display: block;
+    color: #555;
+    font-size: 0.85em;
+    text-decoration: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.footer-col a:hover { color: #61dafb; }
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #444;
+    font-size: 0.8em;
+}
+
+/* Responsive */
+@media screen and (max-width: 991px) {
+    .carousel .list .item { width: 90%; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-layout { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .cart-sidebar { width: 360px; }
+}
+
+@media screen and (max-width: 767px) {
+    .carousel { height: 600px; }
+    .carousel .list .item { width: 100%; font-size: 10px; }
+    .carousel .list { height: 100%; }
+    .carousel .list .item:nth-child(2) .introduce { width: 50%; }
+    .carousel .list .item img { width: 40%; }
+    header nav a { margin-left: 15px; font-size: 12px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .page-hero h1 { font-size: 2.2em; }
+    .cart-sidebar { width: 100%; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="showPage('home')">SoundZ</div>
+    <div class="header-right">
+        <nav>
+            <a onclick="showPage('home')">Home</a>
+            <a onclick="showPage('home')">Product</a>
+            <a onclick="showPage('services')">Services</a>
+            <a onclick="showPage('contact')">Contact</a>
+        </nav>
+        <div class="cart-btn" onclick="toggleCart()">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <span class="cart-badge" id="cartBadge">0</span>
+        </div>
+    </div>
+</header>
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="page-home">
+<div class="carousel" id="carousel">
+    <div class="list">
+
+        <!-- Item 1 -->
+        <div class="item" data-name="SoundZ Elite" data-price="4299000" data-cat="Premium Audio">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop" alt="SoundZ Elite">
+            <div class="introduce">
+                <div class="title">Premium Audio</div>
+                <div class="topic">SoundZ Elite</div>
+                <div class="des">Experience crystal-clear audio with our flagship wireless headphones. Featuring advanced noise cancellation and premium materials for ultimate comfort.</div>
+                <button class="seeMore">SEE MORE &#8599;</button>
+            </div>
+            <div class="detail">
+                <div class="title">SoundZ Elite</div>
+                <div class="des">The SoundZ Elite represents the pinnacle of wireless audio technology. With industry-leading active noise cancellation, 40-hour battery life, and plush memory foam ear cushions, delivering an unparalleled listening experience.</div>
+                <div class="specifications">
+                    <div><p>40h</p><p>Battery</p></div>
+                    <div><p>ANC</p><p>Noise Cancel</p></div>
+                    <div><p>40mm</p><p>Driver</p></div>
+                    <div><p>250g</p><p>Weight</p></div>
+                </div>
+                <div class="checkout">
+                    <button class="btn-add-cart">Add To Cart</button>
+                    <button class="btn-checkout btn-checkout-main-trigger">Checkout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="item" data-name="Quantum" data-price="3599000" data-cat="Gaming Series">
+            <img src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500&h=500&fit=crop" alt="Quantum">
+            <div class="introduce">
+                <div class="title">Gaming Series</div>
+                <div class="topic">Quantum</div>
+                <div class="des">Dominate your game with our professional gaming headset. Features 7.1 surround sound, ultra-low latency wireless connection, and RGB lighting.</div>
+                <button class="seeMore">SEE MORE &#8599;</button>
+            </div>
+            <div class="detail">
+                <div class="title">Quantum</div>
+                <div class="des">Built for esports professionals, the Quantum delivers pinpoint audio accuracy with 7.1 virtual surround sound. The 2.4GHz wireless ensures sub-20ms latency, while the detachable noise-canceling microphone keeps communication crystal clear.</div>
+                <div class="specifications">
+                    <div><p>7.1</p><p>Surround</p></div>
+                    <div><p>20ms</p><p>Latency</p></div>
+                    <div><p>RGB</p><p>Lighting</p></div>
+                    <div><p>30h</p><p>Battery</p></div>
+                </div>
+                <div class="checkout">
+                    <button class="btn-add-cart">Add To Cart</button>
+                    <button class="btn-checkout btn-checkout-main-trigger">Checkout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="item" data-name="ChSync X1" data-price="2799000" data-cat="Smart Tech">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop" alt="ChSync X1">
+            <div class="introduce">
+                <div class="title">Smart Tech</div>
+                <div class="topic">ChSync X1</div>
+                <div class="des">Your lifestyle companion reimagined. Track fitness, manage notifications, and monitor health with our advanced smartwatch featuring 7-day battery life.</div>
+                <button class="seeMore">SEE MORE &#8599;</button>
+            </div>
+            <div class="detail">
+                <div class="title">ChSync X1</div>
+                <div class="des">The ChSync X1 is your personal health guardian. Featuring a vibrant 1.4-inch AMOLED display, comprehensive health tracking including SpO2, heart rate, and sleep analysis. With 7-day battery life and 50m water resistance.</div>
+                <div class="specifications">
+                    <div><p>1.4"</p><p>AMOLED</p></div>
+                    <div><p>7 Day</p><p>Battery</p></div>
+                    <div><p>50m</p><p>Water Res</p></div>
+                    <div><p>SpO2</p><p>Sensor</p></div>
+                </div>
+                <div class="checkout">
+                    <button class="btn-add-cart">Add To Cart</button>
+                    <button class="btn-checkout btn-checkout-main-trigger">Checkout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="item" data-name="AirBuds Pro" data-price="1999000" data-cat="True Wireless">
+            <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&h=500&fit=crop" alt="AirBuds Pro">
+            <div class="introduce">
+                <div class="title">True Wireless</div>
+                <div class="topic">AirBuds Pro</div>
+                <div class="des">Experience true freedom with our premium wireless earbuds. Advanced noise cancellation, crystal-clear call quality, and seamless device switching.</div>
+                <button class="seeMore">SEE MORE &#8599;</button>
+            </div>
+            <div class="detail">
+                <div class="title">AirBuds Pro</div>
+                <div class="des">AirBuds Pro deliver studio-quality sound in a truly wireless form factor. With adaptive active noise cancellation, transparency mode, and spatial audio support, these earbuds adapt to your environment perfectly.</div>
+                <div class="specifications">
+                    <div><p>8h</p><p>Earbud</p></div>
+                    <div><p>30h</p><p>With Case</p></div>
+                    <div><p>ANC</p><p>Adaptive</p></div>
+                    <div><p>IPX4</p><p>Sweat Res</p></div>
+                </div>
+                <div class="checkout">
+                    <button class="btn-add-cart">Add To Cart</button>
+                    <button class="btn-checkout btn-checkout-main-trigger">Checkout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="item" data-name="TrueVR Vision" data-price="8999000" data-cat="Virtual Reality">
+            <img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=500&h=500&fit=crop" alt="TrueVR Vision">
+            <div class="introduce">
+                <div class="title">Virtual Reality</div>
+                <div class="topic">TrueVR Vision</div>
+                <div class="des">Step into the future with our advanced VR headset. 4K per eye resolution, 120Hz refresh rate, and revolutionary eye-tracking for the most immersive experience.</div>
+                <button class="seeMore">SEE MORE &#8599;</button>
+            </div>
+            <div class="detail">
+                <div class="title">TrueVR Vision</div>
+                <div class="des">TrueVR Vision pushes VR boundaries with dual 4K OLED displays at 120Hz. Revolutionary eye-tracking enables foveated rendering. Inside-out tracking eliminates external sensors for a seamless, comfortable extended session.</div>
+                <div class="specifications">
+                    <div><p>4K</p><p>Per Eye</p></div>
+                    <div><p>120Hz</p><p>Refresh</p></div>
+                    <div><p>Eye</p><p>Tracking</p></div>
+                    <div><p>110°</p><p>FOV</p></div>
+                </div>
+                <div class="checkout">
+                    <button class="btn-add-cart">Add To Cart</button>
+                    <button class="btn-checkout btn-checkout-main-trigger">Checkout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="item" data-name="AirBuds Lite" data-price="799000" data-cat="Lifestyle Series">
+            <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=500&h=500&fit=crop" alt="AirBuds Lite">
+            <div class="introduce">
+                <div class="title">Lifestyle Series</div>
+                <div class="topic">AirBuds Lite</div>
+                <div class="des">Compact and stylish, these wireless earbuds deliver impressive sound in a minimalist package. Perfect for everyday use with intuitive touch controls.</div>
+                <button class="seeMore">SEE MORE &#8599;</button>
+            </div>
+            <div class="detail">
+                <div class="title">AirBuds Lite</div>
+                <div class="des">AirBuds Lite combine minimalist design with powerful audio. The ultra-compact charging case fits in any pocket, providing 6 hours of continuous playback. Quick charge gives 2 hours of music from just 10 minutes of charging.</div>
+                <div class="specifications">
+                    <div><p>6h</p><p>Playback</p></div>
+                    <div><p>24h</p><p>With Case</p></div>
+                    <div><p>10min</p><p>Quick Charge</p></div>
+                    <div><p>4.5g</p><p>Per Earbud</p></div>
+                </div>
+                <div class="checkout">
+                    <button class="btn-add-cart">Add To Cart</button>
+                    <button class="btn-checkout btn-checkout-main-trigger">Checkout</button>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /list -->
+
+    <div class="arrows">
+        <button id="prev"></button>
+        <button id="next"></button>
+        <button id="back">&#8592; Back</button>
+    </div>
+</div><!-- /carousel -->
+</div><!-- /page-home -->
+
+<!-- ===== SERVICES PAGE ===== -->
+<div class="page" id="page-services">
+<div class="services-page">
+    <div class="page-hero">
+        <div class="tag">What We Offer</div>
+        <h1>Our Services</h1>
+        <p>From premium audio gear to expert support — we're here to elevate your sound experience at every step.</p>
+    </div>
+    <div class="container">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🎧</div>
+                <h3>Audio Consultation</h3>
+                <p>Our certified audio engineers help you find the perfect setup for your needs — whether studio recording, gaming, or everyday listening.</p>
+                <div class="service-price">
+                    <span class="price">Gratis</span>
+                    <button class="btn-outline" onclick="showPage('contact')">Book Now</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Repair & Maintenance</h3>
+                <p>Official SoundZ repair center with genuine spare parts. We handle everything from cable replacement to full driver overhaul with 90-day warranty.</p>
+                <div class="service-price">
+                    <span class="price">Mulai Rp 150k</span>
+                    <button class="btn-outline" onclick="showPage('contact')">Book Now</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚀</div>
+                <h3>Express Delivery</h3>
+                <p>Same-day delivery for orders placed before 12.00 PM in Bandung and Jakarta. We partner with trusted couriers for safe, fast, insured shipping.</p>
+                <div class="service-price">
+                    <span class="price">Rp 35k</span>
+                    <button class="btn-outline" onclick="showPage('contact')">Learn More</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎁</div>
+                <h3>Gift Wrapping</h3>
+                <p>Premium gift packaging with personalized message card. Perfect for birthdays, anniversaries, or any special occasion. Available for all products.</p>
+                <div class="service-price">
+                    <span class="price">Rp 25k</span>
+                    <button class="btn-outline" onclick="toggleCart()">Add to Order</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📡</div>
+                <h3>Firmware Update</h3>
+                <p>Keep your SoundZ devices running at peak performance with our remote firmware update service. New features and performance improvements delivered OTA.</p>
+                <div class="service-price">
+                    <span class="price">Gratis</span>
+                    <button class="btn-outline" onclick="showPage('contact')">Learn More</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h3>Extended Warranty</h3>
+                <p>Extend your protection up to 3 years. Covers accidental damage, water damage, and hardware failure. Priority service queue and free loaner units included.</p>
+                <div class="service-price">
+                    <span class="price">Mulai Rp 299k/thn</span>
+                    <button class="btn-outline" onclick="showPage('contact')">Get Quote</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <h2>Why Choose SoundZ?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="fi-icon">⚡</div>
+                    <h4>Fast Support</h4>
+                    <p>24/7 customer support via chat, email, and phone. Average response time under 2 hours.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="fi-icon">✅</div>
+                    <h4>Certified Products</h4>
+                    <p>All products are CE, FCC, and SDPPI certified. 100% authentic guarantee.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="fi-icon">🔄</div>
+                    <h4>30-Day Returns</h4>
+                    <p>Not satisfied? Return any product within 30 days for a full refund, no questions asked.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="fi-icon">🏆</div>
+                    <h4>Award Winning</h4>
+                    <p>Best Audio Brand Indonesia 2024. Over 50,000 happy customers across the archipelago.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>SoundZ</h3>
+                <p>Premium audio experiences crafted for the discerning listener. Sound is our passion, quality is our promise.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a onclick="showPage('home')">Headphones</a>
+                <a onclick="showPage('home')">Earbuds</a>
+                <a onclick="showPage('home')">Gaming</a>
+                <a onclick="showPage('home')">Smart Watch</a>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <a onclick="showPage('services')">Repair Center</a>
+                <a onclick="showPage('services')">Warranty</a>
+                <a onclick="showPage('services')">Consultation</a>
+                <a onclick="showPage('contact')">Support</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a onclick="showPage('contact')">About Us</a>
+                <a onclick="showPage('contact')">Contact</a>
+                <a>Careers</a>
+                <a>Press Kit</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 SoundZ. All rights reserved.</span>
+            <span>Made with 🎧 in Bandung, Indonesia</span>
+        </div>
+    </div>
+</footer>
+</div><!-- /page-services -->
+
+<!-- ===== CONTACT PAGE ===== -->
+<div class="page" id="page-contact">
+<div class="contact-page">
+    <div class="page-hero">
+        <div class="tag">Get In Touch</div>
+        <h1>Contact Us</h1>
+        <p>Have a question, need support, or want to partner with us? We'd love to hear from you.</p>
+    </div>
+    <div class="container">
+        <div class="contact-layout">
+            <div class="contact-info">
+                <h2>Let's talk about your sound.</h2>
+                <p>Our team of audio experts is ready to help. Whether you're choosing your first pair or upgrading your setup, reach out — we're here.</p>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">📍</div>
+                    <div class="contact-item-text">
+                        <h4>Showroom & Service Center</h4>
+                        <p>Jl. Riau No. 28, Bandung, Jawa Barat 40115</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">📞</div>
+                    <div class="contact-item-text">
+                        <h4>Phone & WhatsApp</h4>
+                        <p>+62 811-2345-6789</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">✉️</div>
+                    <div class="contact-item-text">
+                        <h4>Email</h4>
+                        <p>hello@soundz.id</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">🕐</div>
+                    <div class="contact-item-text">
+                        <h4>Business Hours</h4>
+                        <p>Senin–Sabtu: 09.00–20.00 WIB<br>Minggu: 10.00–17.00 WIB</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="c-name" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="c-email" placeholder="john@email.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="text" id="c-phone" placeholder="+62 812 3456 7890">
+                </div>
+                <div class="form-group">
+                    <label>Topik</label>
+                    <select id="c-topic">
+                        <option value="">-- Pilih Topik --</option>
+                        <option>Pertanyaan Produk</option>
+                        <option>Service & Repair</option>
+                        <option>Garansi</option>
+                        <option>Pengiriman</option>
+                        <option>Kerjasama / Partnership</option>
+                        <option>Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Pesan</label>
+                    <textarea id="c-msg" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                </div>
+                <button class="btn-submit" onclick="submitContact()">KIRIM PESAN &#8594;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>SoundZ</h3>
+                <p>Premium audio experiences crafted for the discerning listener. Sound is our passion, quality is our promise.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a onclick="showPage('home')">Headphones</a>
+                <a onclick="showPage('home')">Earbuds</a>
+                <a onclick="showPage('home')">Gaming</a>
+                <a onclick="showPage('home')">Smart Watch</a>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <a onclick="showPage('services')">Repair Center</a>
+                <a onclick="showPage('services')">Warranty</a>
+                <a onclick="showPage('services')">Consultation</a>
+                <a onclick="showPage('contact')">Support</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a onclick="showPage('contact')">About Us</a>
+                <a onclick="showPage('contact')">Contact</a>
+                <a>Careers</a>
+                <a>Press Kit</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 SoundZ. All rights reserved.</span>
+            <span>Made with 🎧 in Bandung, Indonesia</span>
+        </div>
+    </div>
+</footer>
+</div><!-- /page-contact -->
+
+<!-- ===== CART SIDEBAR ===== -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h2>🛒 Keranjang Belanja</h2>
+        <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <div class="cart-empty" id="cartEmpty">
+            <div class="empty-icon">🎧</div>
+            <p>Keranjang masih kosong.<br>Yuk cari produk favoritmu!</p>
+        </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+        <div class="cart-subtotal">
+            <span>Subtotal</span>
+            <span class="amount" id="cartSubtotal">Rp 0</span>
+        </div>
+        <div class="cart-subtotal">
+            <span>Ongkos Kirim</span>
+            <span class="amount">Rp 35.000</span>
+        </div>
+        <div class="cart-total">
+            <span>Total</span>
+            <span class="total-amount" id="cartTotal">Rp 0</span>
+        </div>
+        <button class="btn-checkout-main" onclick="openCheckout()">CHECKOUT &#8594;</button>
+        <button class="btn-continue" onclick="toggleCart()">Lanjut Belanja</button>
+    </div>
+</div>
+
+<!-- ===== CHECKOUT MODAL ===== -->
+<div class="checkout-modal" id="checkoutModal">
+    <div class="checkout-box">
+        <h2>Checkout</h2>
+        <p class="subtitle">Isi informasi pengiriman & pembayaran</p>
+
+        <div class="checkout-form">
+            <div class="checkout-divider">Data Penerima</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="ch-name" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>No. Telepon</label>
+                    <input type="text" id="ch-phone" placeholder="+62 812 3456 7890">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Alamat Lengkap</label>
+                <input type="text" id="ch-address" placeholder="Jl. Contoh No. 10, Kel. ABC, Kec. XYZ">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Kota</label>
+                    <input type="text" id="ch-city" placeholder="Bandung">
+                </div>
+                <div class="form-group">
+                    <label>Kode Pos</label>
+                    <input type="text" id="ch-zip" placeholder="40115">
+                </div>
+            </div>
+
+            <div class="checkout-divider">Pembayaran</div>
+            <div class="form-group">
+                <label>Metode Pembayaran</label>
+                <select id="ch-payment">
+                    <option>Transfer Bank (BCA)</option>
+                    <option>Transfer Bank (Mandiri)</option>
+                    <option>Transfer Bank (BRI)</option>
+                    <option>GoPay</option>
+                    <option>OVO</option>
+                    <option>DANA</option>
+                    <option>Kartu Kredit / Debit</option>
+                    <option>COD (Bayar di Tempat)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Kurir</label>
+                <select id="ch-courier">
+                    <option>JNE Regular (2-3 hari)</option>
+                    <option>JNE YES (1 hari)</option>
+                    <option>J&T Express</option>
+                    <option>SiCepat</option>
+                    <option>AnterAja</option>
+                    <option>Same Day (Bandung only)</option>
+                </select>
+            </div>
+
+            <div class="checkout-divider">Ringkasan Pesanan</div>
+            <div class="checkout-order-summary" id="checkoutSummary"></div>
+        </div>
+
+        <div class="checkout-actions">
+            <button class="btn-cancel" onclick="closeCheckout()">Batal</button>
+            <button class="btn-pay" onclick="processPayment()">💳 Bayar Sekarang</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== SUCCESS MODAL ===== -->
+<div class="success-modal" id="successModal">
+    <div class="success-box">
+        <div class="success-icon">🎉</div>
+        <h2>Pesanan Berhasil!</h2>
+        <p>Terima kasih telah berbelanja di SoundZ.<br>
+        No. Pesanan Anda: <span class="order-id" id="orderId">#SZ-000000</span><br>
+        Konfirmasi akan dikirim ke WhatsApp Anda dalam 5 menit.</p>
+        <button class="btn-done" onclick="closeSuccess()">Selesai</button>
+    </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast">
+    <div class="toast-title" id="toastTitle">Berhasil!</div>
+    <div id="toastMsg">Item ditambahkan ke keranjang.</div>
+</div>
+
+<script>
+// ===== PAGE NAVIGATION =====
+function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+// ===== CART STATE =====
+let cart = [];
+
+function getTotal() {
+    return cart.reduce((s, i) => s + i.price * i.qty, 0);
+}
+
+function formatRp(n) {
+    return 'Rp ' + n.toLocaleString('id-ID');
+}
+
+function updateCartUI() {
+    const itemsEl = document.getElementById('cartItems');
+    const emptyEl = document.getElementById('cartEmpty');
+    const footerEl = document.getElementById('cartFooter');
+    const badgeEl = document.getElementById('cartBadge');
+
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+    badgeEl.textContent = totalQty;
+    badgeEl.classList.toggle('show', totalQty > 0);
+
+    if (cart.length === 0) {
+        emptyEl.style.display = 'block';
+        footerEl.style.display = 'none';
+        // Remove all cart items except empty
+        itemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
+        return;
+    }
+
+    emptyEl.style.display = 'none';
+    footerEl.style.display = 'block';
+
+    // Rebuild list
+    itemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
+    cart.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <div class="cart-item-img">
+                <img src="${item.img}" alt="${item.name}">
+            </div>
+            <div class="cart-item-info">
+                <h4>${item.name}</h4>
+                <div class="cart-item-cat">${item.cat}</div>
+                <div class="cart-item-actions">
+                    <div class="qty-control">
+                        <button class="qty-btn" onclick="changeQty(${idx}, -1)">−</button>
+                        <span class="qty-val">${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+                    </div>
+                    <span class="cart-item-price">${formatRp(item.price * item.qty)}</span>
+                    <button class="cart-item-remove" onclick="removeItem(${idx})">🗑</button>
+                </div>
+            </div>
+        `;
+        itemsEl.appendChild(div);
+    });
+
+    const subtotal = getTotal();
+    const shipping = 35000;
+    document.getElementById('cartSubtotal').textContent = formatRp(subtotal);
+    document.getElementById('cartTotal').textContent = formatRp(subtotal + shipping);
+}
+
+function addToCart(name, price, cat, img) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ name, price, cat, img, qty: 1 });
+    }
+    updateCartUI();
+    showToast('Ditambahkan! 🛒', `${name} masuk ke keranjang.`);
+}
+
+function changeQty(idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    updateCartUI();
+}
+
+function removeItem(idx) {
+    cart.splice(idx, 1);
+    updateCartUI();
+}
+
+// ===== CART TOGGLE =====
+function toggleCart() {
+    document.getElementById('cartSidebar').classList.toggle('show');
+    document.getElementById('cartOverlay').classList.toggle('show');
+}
+
+// ===== CHECKOUT =====
+function openCheckout() {
+    if (cart.length === 0) return;
+    toggleCart();
+    buildCheckoutSummary();
+    document.getElementById('checkoutModal').classList.add('show');
+}
+
+function closeCheckout() {
+    document.getElementById('checkoutModal').classList.remove('show');
+}
+
+function buildCheckoutSummary() {
+    const el = document.getElementById('checkoutSummary');
+    let html = '';
+    cart.forEach(item => {
+        html += `<div class="checkout-order-item"><span>${item.name} x${item.qty}</span><span>${formatRp(item.price * item.qty)}</span></div>`;
+    });
+    const subtotal = getTotal();
+    html += `<div class="checkout-order-item"><span>Ongkos Kirim</span><span>Rp 35.000</span></div>`;
+    html += `<div class="checkout-order-total"><span>Total Pembayaran</span><span class="total-price">${formatRp(subtotal + 35000)}</span></div>`;
+    el.innerHTML = html;
+}
+
+function processPayment() {
+    const name = document.getElementById('ch-name').value.trim();
+    const phone = document.getElementById('ch-phone').value.trim();
+    const address = document.getElementById('ch-address').value.trim();
+
+    if (!name || !phone || !address) {
+        showToast('⚠️ Lengkapi Data', 'Isi nama, telepon, dan alamat dulu ya!');
+        return;
+    }
+
+    closeCheckout();
+    const orderId = '#SZ-' + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('orderId').textContent = orderId;
+    document.getElementById('successModal').classList.add('show');
+}
+
+function closeSuccess() {
+    document.getElementById('successModal').classList.remove('show');
+    cart = [];
+    updateCartUI();
+    // Clear checkout fields
+    ['ch-name','ch-phone','ch-address','ch-city','ch-zip'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+}
+
+// ===== CONTACT =====
+function submitContact() {
+    const name = document.getElementById('c-name').value.trim();
+    const email = document.getElementById('c-email').value.trim();
+    const msg = document.getElementById('c-msg').value.trim();
+
+    if (!name || !email || !msg) {
+        showToast('⚠️ Lengkapi Form', 'Nama, email, dan pesan wajib diisi.');
+        return;
+    }
+
+    showToast('✅ Pesan Terkirim!', 'Tim kami akan menghubungi Anda segera.');
+    ['c-name','c-email','c-phone','c-msg'].forEach(id => {
+        document.getElementById(id).value = '';
+    });
+    document.getElementById('c-topic').selectedIndex = 0;
+}
+
+// ===== TOAST =====
+let toastTimer;
+function showToast(title, msg) {
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMsg').textContent = msg;
+    const el = document.getElementById('toast');
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ===== CAROUSEL LOGIC =====
+let nextButton = document.getElementById('next');
+let prevButton = document.getElementById('prev');
+let carousel = document.getElementById('carousel');
+let listHTML = document.querySelector('.carousel .list');
+let backButton = document.getElementById('back');
+let unAcceptClick;
+
+const showSlider = (type) => {
+    nextButton.style.pointerEvents = 'none';
+    prevButton.style.pointerEvents = 'none';
+    carousel.classList.remove('next', 'prev');
+    let items = document.querySelectorAll('.carousel .list .item');
+    if (type === 'next') {
+        listHTML.appendChild(items[0]);
+        carousel.classList.add('next');
+    } else {
+        listHTML.prepend(items[items.length - 1]);
+        carousel.classList.add('prev');
+    }
+    clearTimeout(unAcceptClick);
+    unAcceptClick = setTimeout(() => {
+        nextButton.style.pointerEvents = 'auto';
+        prevButton.style.pointerEvents = 'auto';
+    }, 2000);
+    rebindButtons();
+};
+
+nextButton.onclick = () => showSlider('next');
+prevButton.onclick = () => showSlider('prev');
+backButton.onclick = () => carousel.classList.remove('showDetail');
+
+function rebindButtons() {
+    setTimeout(() => {
+        // Re-bind seeMore
+        document.querySelectorAll('.seeMore').forEach(btn => {
+            btn.onclick = function () {
+                carousel.classList.remove('next', 'prev');
+                carousel.classList.add('showDetail');
+            };
+        });
+        // Re-bind add to cart & checkout
+        bindProductButtons();
+    }, 100);
+}
+
+function bindProductButtons() {
+    document.querySelectorAll('.btn-add-cart').forEach(btn => {
+        btn.onclick = function () {
+            const item = btn.closest('.item');
+            const name = item.dataset.name;
+            const price = parseInt(item.dataset.price);
+            const cat = item.dataset.cat;
+            const img = item.querySelector('img').src;
+            addToCart(name, price, cat, img);
+        };
+    });
+
+    document.querySelectorAll('.btn-checkout-main-trigger').forEach(btn => {
+        btn.onclick = function () {
+            const item = btn.closest('.item');
+            const name = item.dataset.name;
+            const price = parseInt(item.dataset.price);
+            const cat = item.dataset.cat;
+            const img = item.querySelector('img').src;
+            // Add if not in cart
+            const existing = cart.find(i => i.name === name);
+            if (!existing) addToCart(name, price, cat, img);
+            setTimeout(openCheckout, 200);
+        };
+    });
+}
+
+document.querySelectorAll('.seeMore').forEach(btn => {
+    btn.onclick = function () {
+        carousel.classList.remove('next', 'prev');
+        carousel.classList.add('showDetail');
+    };
+});
+
+bindProductButtons();
+</script>
+</body>
+</html>
