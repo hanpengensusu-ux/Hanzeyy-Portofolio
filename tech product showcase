@@ -1287,7 +1287,7 @@ footer {
 
         <!-- Item 1 -->
         <div class="item" data-name="SoundZ Elite" data-price="4299000" data-cat="Premium Audio">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop" alt="SoundZ Elite">
+            <img src="img1.png" alt="SoundZ Elite">
             <div class="introduce">
                 <div class="title">Premium Audio</div>
                 <div class="topic">SoundZ Elite</div>
@@ -1312,7 +1312,7 @@ footer {
 
         <!-- Item 2 -->
         <div class="item" data-name="Quantum" data-price="3599000" data-cat="Gaming Series">
-            <img src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500&h=500&fit=crop" alt="Quantum">
+            <img src="img2.png" alt="Quantum">
             <div class="introduce">
                 <div class="title">Gaming Series</div>
                 <div class="topic">Quantum</div>
@@ -1337,7 +1337,7 @@ footer {
 
         <!-- Item 3 -->
         <div class="item" data-name="ChSync X1" data-price="2799000" data-cat="Smart Tech">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop" alt="ChSync X1">
+            <img src="img3.png" alt="ChSync X1">
             <div class="introduce">
                 <div class="title">Smart Tech</div>
                 <div class="topic">ChSync X1</div>
@@ -1362,7 +1362,7 @@ footer {
 
         <!-- Item 4 -->
         <div class="item" data-name="AirBuds Pro" data-price="1999000" data-cat="True Wireless">
-            <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&h=500&fit=crop" alt="AirBuds Pro">
+            <img src="img4.png" alt="AirBuds Pro">
             <div class="introduce">
                 <div class="title">True Wireless</div>
                 <div class="topic">AirBuds Pro</div>
@@ -1387,7 +1387,7 @@ footer {
 
         <!-- Item 5 -->
         <div class="item" data-name="TrueVR Vision" data-price="8999000" data-cat="Virtual Reality">
-            <img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=500&h=500&fit=crop" alt="TrueVR Vision">
+            <img src="img5.png" alt="TrueVR Vision">
             <div class="introduce">
                 <div class="title">Virtual Reality</div>
                 <div class="topic">TrueVR Vision</div>
@@ -1412,7 +1412,7 @@ footer {
 
         <!-- Item 6 -->
         <div class="item" data-name="AirBuds Lite" data-price="799000" data-cat="Lifestyle Series">
-            <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=500&h=500&fit=crop" alt="AirBuds Lite">
+            <img src="img6.png" alt="AirBuds Lite">
             <div class="introduce">
                 <div class="title">Lifestyle Series</div>
                 <div class="topic">AirBuds Lite</div>
@@ -1601,14 +1601,14 @@ footer {
                     <div class="contact-item-icon">📞</div>
                     <div class="contact-item-text">
                         <h4>Phone & WhatsApp</h4>
-                        <p>+62 811-2345-6789</p>
+                        <p>+62 821 1482 2845</p>
                     </div>
                 </div>
                 <div class="contact-item">
                     <div class="contact-item-icon">✉️</div>
                     <div class="contact-item-text">
-                        <h4>Email</h4>
-                        <p>hello@soundz.id</p>
+                        <h4>Hanzeii@gmail.com</h4>
+                        <p>hellohann@soundz.id</p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -1625,16 +1625,16 @@ footer {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nama Lengkap</label>
-                        <input type="text" id="c-name" placeholder="John Doe">
+                        <input type="text" id="c-name" placeholder="Jonh han">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" id="c-email" placeholder="john@email.com">
+                        <input type="email" id="c-email" placeholder="Hann@email.com">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Nomor WhatsApp</label>
-                    <input type="text" id="c-phone" placeholder="+62 812 3456 7890">
+                    <input type="text" id="c-phone" placeholder="+62 821 1482 2845">
                 </div>
                 <div class="form-group">
                     <label>Topik</label>
@@ -1737,11 +1737,11 @@ footer {
             <div class="form-row">
                 <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text" id="ch-name" placeholder="John Doe">
+                    <input type="text" id="ch-name" placeholder="John Han">
                 </div>
                 <div class="form-group">
                     <label>No. Telepon</label>
-                    <input type="text" id="ch-phone" placeholder="+62 812 3456 7890">
+                    <input type="text" id="ch-phone" placeholder="+62 821 1482 2845">
                 </div>
             </div>
             <div class="form-group">
@@ -1955,14 +1955,18 @@ function processPayment() {
 }
 
 function closeSuccess() {
+    const orderId = document.getElementById('orderId').textContent;
     document.getElementById('successModal').classList.remove('show');
     cart = [];
     updateCartUI();
-    // Clear checkout fields
     ['ch-name','ch-phone','ch-address','ch-city','ch-zip'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
     });
+    const msg = encodeURIComponent(
+        'Halo SoundZ! \n\nSaya baru saja melakukan pembelian dengan nomor pesanan: ' + orderId + '\n\nMohon konfirmasinya ya. Terima kasih!'
+    );
+    window.open('https://wa.me/6282114822845?text=' + msg, '_blank');
 }
 
 // ===== CONTACT =====
